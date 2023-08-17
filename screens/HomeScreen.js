@@ -24,8 +24,8 @@ function HomeScreen({ navigation }) {
     );
   };
 
-  const GoToAnnouncements = () => {
-    navigation.navigate("AnnouncementsScreen");
+  const GoToAnnouncementsScreen = () => {
+    navigation.navigate("Additional", { screen: "AnnouncementsScreen" });
   };
 
   const GoToFloorPlan = () => {
@@ -57,7 +57,7 @@ function HomeScreen({ navigation }) {
 
         <RoundedRectButton
           title="Announcements"
-          onPress={OpenInstagram}
+          onPress={GoToAnnouncementsScreen}
           buttonStyle={styles.customButton}
           textStyle={styles.customButtonText}
         />

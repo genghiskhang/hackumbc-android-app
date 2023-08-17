@@ -14,6 +14,7 @@ import FloorPlan from "./screens/FloorPlan";
 import CheckInScreen from "./screens/CheckInScreen";
 import ScanNFCScreen from "./screens/ScanNFCScreen";
 import SpendPointsScreen from "./screens/SpendPointsScreen";
+import AnnouncementsScreen from "./screens/AnnouncementsScreen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -28,6 +29,7 @@ const App = () => {
         <Stack.Screen name="CheckInScreen" component={CheckInScreen} />
         <Stack.Screen name="ScanNFCScreen" component={ScanNFCScreen} />
         <Stack.Screen name="SpendPointsScreen" component={SpendPointsScreen} />
+        <Stack.Screen name="AnnouncementsScreen" component={AnnouncementsScreen} />
         {/* Add more additional screens here, when navigating use navigation.navigate("Additional", { screen: "screen" });*/}
       </Stack.Navigator>
     );
