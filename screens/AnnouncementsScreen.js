@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, ImageBackground, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Image, ImageBackground, TouchableOpacity, Pressable } from 'react-native';
 import axios from 'axios';
 import Modal from 'react-native-modal'
+import { ScrollView, StatusBar } from 'native-base';
 
 const NUM_ANNOUNCEMENTS = 10;
 
@@ -21,6 +22,7 @@ const AnnouncementsScreen = () => {
   ]]);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalItem, setModalItem] = useState();
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
     getAnnouncements();
@@ -37,6 +39,7 @@ const AnnouncementsScreen = () => {
       .then((res) => {
         setAnnouncements(res.data.body)
       })
+    setIsRefreshing(false)
   }
 
   const renderItem = ({ item }) => {
@@ -59,10 +62,22 @@ const AnnouncementsScreen = () => {
         source={require("../assets/light_blue_new.jpg")}
         style={styles.imageBackground}
       >
+        <StatusBar/>
+        <Image
+          source={require("../assets/dog_logo.png")}
+          style={styles.imageHeading}
+        />
+
+        <Text style={styles.headingTextBefore}></Text>
+        <Text style={styles.headingText}>Announcements</Text>
+        <Text style={styles.headingTextAfter}></Text>
+
         <FlatList
           style={styles.announcementsList}
           data={announcements}
           renderItem={renderItem}
+          onRefresh={() => [setIsRefreshing(true), getAnnouncements()]}
+          refreshing={isRefreshing}
         />
         <Modal
           isVisible={modalVisible}
@@ -97,8 +112,14 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  imageHeading: {
+    width: 100,
+    height: 60,
+    marginTop: "5%",
+    alignSelf: "center",
+  },
   announcementsList: {
-    marginTop:50,
+    // marginTop:20,
   },
   announecementsContainer: {
     borderRadius:10,
@@ -150,6 +171,18 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
+  },
+  headingText: {
+    textAlign: "center",
+    fontSize: 25,
+    fontWeight: "bold",
+    color: "white",
+  },
+  headingTextAfter: {
+    content: "{",
+  },
+  headingTextBefore: {
+    content: "{",
   },
 });
 

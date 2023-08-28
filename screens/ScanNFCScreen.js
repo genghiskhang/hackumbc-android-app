@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, ImageBackground, Image, Button, StyleSheet, ViewBase } from "react-native";
 import RoundedRectButton from "../Components/RoundedRectButton";
 import axios from "axios";
+import { StatusBar } from "native-base";
 
 const ScanNFCScreen = ({ navigation }) => {
     var participant_id = "9900";
@@ -50,6 +51,7 @@ const ScanNFCScreen = ({ navigation }) => {
         source={require("../assets/light_blue_new.jpg")}
         style={styles.imageBackground}
       >
+        <StatusBar/>
         <Image
           source={require("../assets/dog_logo.png")}
           style={styles.imageHeading}

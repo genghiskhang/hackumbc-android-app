@@ -4,6 +4,7 @@ import { Agenda } from "react-native-calendars";
 import { Card, Avatar } from "react-native-paper";
 import { Dialog } from "@rneui/themed";
 import axios from "axios";
+import { StatusBar } from "native-base";
 
 const timeToString = (time) => {
   const date = new Date(time);
@@ -103,6 +104,7 @@ const Schedule = () => {
 
   return (
     <View style={{ flex: 1 }}>
+      <StatusBar/>
       <Dialog isVisible={visible} onBackdropPress={() => toggleDialog("")}>
         <Dialog.Title title={nameText} />
         <Text>Location: {locationText}</Text>

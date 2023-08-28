@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, ImageBackground, Image, Button, StyleSheet, ViewBase, Dimensions } from "react-native";
 import RoundedRectButton from "../Components/RoundedRectButton";
 import axios from "axios";
+import { StatusBar } from "native-base";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
@@ -105,7 +106,7 @@ const CheckInScreen = ({ navigation }) => {
             source={require("../assets/light_blue_new.jpg")}
             style={styles.imageBackground}
         >
-        
+            <StatusBar/>
             <Image
             source={require("../assets/dog_logo.png")}
             style={styles.imageHeading}
@@ -114,6 +115,7 @@ const CheckInScreen = ({ navigation }) => {
             <Text style={styles.headingText}>Participant Check In{"\n"}{username}</Text>
 
             <TextInput
+                autoCapitalize="none"
                 style={styles.input}
                 placeholder="Email"
                 onChangeText={(text) => setEmail(text)}
@@ -141,14 +143,6 @@ const CheckInScreen = ({ navigation }) => {
                 textStyle={styles.buttonText}
             />
 
-
-            <RoundedRectButton
-                title="Back"
-                onPress={goBack}
-                buttonStyle={styles.button}
-                textStyle={styles.buttonText}
-            />
-
             <Text style={styles.headingText}>{checkInStatusString}</Text>
 
         </ImageBackground>
@@ -172,9 +166,11 @@ const styles = StyleSheet.create({
       input: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: 40,
+        height: 50,
+        marginTop: 0,
         margin: 40,
-        padding: 40,
+        padding:10,
+        fontSize:20,
         borderColor: "#ccc",
         borderWidth: 1,
         borderRadius: 4,
@@ -205,10 +201,9 @@ const styles = StyleSheet.create({
         position: "absolute",
       },
       imageHeading: {
-        width: 200,
-        height: 120,
-        marginBottom: 20,
-        marginTop: 20,
+        width: 100,
+        height: 60,
+        marginTop: "5%",
         alignSelf: "center",
       },
       headingText: {

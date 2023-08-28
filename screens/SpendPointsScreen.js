@@ -3,6 +3,7 @@ import DropDownPicker from "react-native-dropdown-picker"
 import { View, Text, TextInput, ImageBackground, Image, Button, StyleSheet, ViewBase } from "react-native";
 import RoundedRectButton from "../Components/RoundedRectButton";
 import axios from "axios"
+import { StatusBar } from "native-base";
 // import NFCScanner from "../Components/NFCScanner";
 
 var participantPoints, spendPointsStatus, pointsOptions = [];
@@ -88,6 +89,7 @@ const SpendPointsScreen = ({ navigation }) => {
                 source={require("../assets/light_blue_new.jpg")}
                 style={styles.imageBackground}
             >
+                <StatusBar/>
                 <Image
                     source={require("../assets/dog_logo.png")}
                     style={styles.imageHeading}
@@ -97,23 +99,26 @@ const SpendPointsScreen = ({ navigation }) => {
                 <Text style={styles.headingTextAfter}></Text>
 
                 <TextInput
+                    autoCapitalize="none"
                     style={styles.input}
                     placeholder="Enter Participant ID"
                     onChangeText={(text) => setParticipantID(text)}
                     value={participantID}
                 />
-
-                <DropDownPicker
-                    style={styles.dropdown}
-                    textStyle = {styles.dropdownText}
-                    dropDownContainerStyle={styles.innerDropdown}
-                    open={open}
-                    value={value}
-                    items={pointsOptions}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={pointsOptions}
-                />
+                <View style={{zIndex:1000}}>
+                    <DropDownPicker
+                        style={styles.dropdown}
+                        textStyle = {styles.dropdownText}
+                        dropDownContainerStyle={styles.innerDropdown}
+                        dropDownDirection="BOTTOM"
+                        open={open}
+                        value={value}
+                        items={pointsOptions}
+                        setOpen={setOpen}
+                        setValue={setValue}
+                        setItems={pointsOptions}
+                    />
+                </View>
                 <Text style={styles.headingText}>Cost: {value}</Text>
 
                 <RoundedRectButton
@@ -159,12 +164,15 @@ const styles = StyleSheet.create({
       input: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: 40,
+        height: 50,
+        marginTop: 0,
         margin: 40,
-        padding: 40,
+        padding:10,
+        fontSize:20,
         borderColor: "#ccc",
         borderWidth: 1,
         borderRadius: 4,
+        color: "white"
       },
       button: {
         alignItems: 'center',

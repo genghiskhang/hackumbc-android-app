@@ -10,6 +10,7 @@ import {
   Dimensions,
 } from "react-native";
 import RoundedRectButton from "../Components/RoundedRectButton";
+import { StatusBar } from "native-base";
 
 import imageBack from "../assets/light_blue_new.jpg";
 
@@ -32,10 +33,6 @@ function HomeScreen({ navigation }) {
     navigation.navigate("Additional", { screen: "FloorPlan" });
   };
 
-  const GoToSchedule = () => {
-    navigation.navigate("ScheduleScreen");
-  };
-
   const OpenDiscord = () => {
     //Linking.openURL("DISCORD INVITE LINK HERE").catch((err) =>
     //  console.error("An error occurred", err)
@@ -49,6 +46,7 @@ function HomeScreen({ navigation }) {
         resizeMode="cover"
         style={styles.imageBackground}
       >
+        <StatusBar/>
         <Image
           source={require("../assets/dog_logo.png")}
           style={styles.imageHeading}
@@ -65,13 +63,6 @@ function HomeScreen({ navigation }) {
         <RoundedRectButton
           title="ILSB Floor Plan"
           onPress={GoToFloorPlan}
-          buttonStyle={styles.customButton}
-          textStyle={styles.customButtonText}
-        />
-
-        <RoundedRectButton
-          title="Schedule"
-          onPress={GoToSchedule}
           buttonStyle={styles.customButton}
           textStyle={styles.customButtonText}
         />

@@ -10,6 +10,7 @@ import {
   Image,
 } from "react-native";
 import RoundedRectButton from "../Components/RoundedRectButton";
+import { StatusBar } from "native-base";
 import imageBack from "../assets/light_blue_new.jpg";
 
 const windowWidth = Dimensions.get("window").width;
@@ -53,10 +54,20 @@ function FloorPlan({ navigation }) {
         resizeMode="cover"
         style={styles.imageBackground}
       >
-        <Image style={styles.imageHeading} source={{ uri: openFloor(0) }} />
-        <Image style={styles.imageHeading} source={{ uri: openFloor(1) }} />
-        <Image style={styles.imageHeading} source={{ uri: openFloor(2) }} />
-        <Image style={styles.imageHeading} source={{ uri: openFloor(3) }} />
+        <StatusBar/>
+        <Image
+          source={require("../assets/dog_logo.png")}
+          style={styles.imageHeading}
+        />
+
+        <Text style={styles.headingTextBefore}></Text>
+        <Text style={styles.headingText}>Floor Plan</Text>
+        <Text style={styles.headingTextAfter}></Text>
+
+        <Image style={styles.imageFloorPlans} source={{ uri: openFloor(0) }} />
+        <Image style={styles.imageFloorPlans} source={{ uri: openFloor(1) }} />
+        <Image style={styles.imageFloorPlans} source={{ uri: openFloor(2) }} />
+        <Image style={styles.imageFloorPlans} source={{ uri: openFloor(3) }} />
       </ImageBackground>
     </View>
   );
@@ -74,6 +85,12 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   imageHeading: {
+    width: 100,
+    height: 60,
+    marginTop: "5%",
+    alignSelf: "center",
+  },
+  imageFloorPlans: {
     width: windowWidth / 1.2,
     height: windowHeight / 5.3,
     margin: windowHeight / 90,
@@ -81,6 +98,18 @@ const styles = StyleSheet.create({
     padding: 10,
     borderTopLeftRadius: 6,
     borderBottomRightRadius: 6,
+  }, 
+  headingText: {
+    textAlign: "center",
+    fontSize: 25,
+    fontWeight: "bold",
+    color: "white",
+  },
+  headingTextAfter: {
+    content: "{",
+  },
+  headingTextBefore: {
+    content: "{",
   },
 });
 

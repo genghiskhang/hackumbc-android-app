@@ -23,7 +23,11 @@ const RootStack = createStackNavigator();
 const App = () => {
   const AdditionalScreens = () => {
     return (
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={
+          {headerShown:false}
+        }
+      >
         <Stack.Screen name="FloorPlan" component={FloorPlan} />
         <Stack.Screen name="OrganizerScreen" component={OrganizerScreen} />
         <Stack.Screen name="CheckInScreen" component={CheckInScreen} />
@@ -37,7 +41,11 @@ const App = () => {
 
   const TabBar = () => {
     return (
-      <Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={
+          {headerShown:false}
+        }
+      >
         <Tab.Screen
           styles={styles.tabBar}
           options={{
@@ -93,7 +101,12 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <RootStack.Navigator headerMode>
+      <RootStack.Navigator 
+        screenOptions={
+          {headerShown:false}
+        }
+        headerMode
+      >
         <RootStack.Screen name="Main" component={TabBar} />
         <RootStack.Screen name="Additional" component={AdditionalScreens} />
       </RootStack.Navigator>

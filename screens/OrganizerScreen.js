@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, ImageBackground, Image, Button, TouchableOpacity, StyleSheet, ViewBase } from "react-native";
 import RoundedRectButton from "../Components/RoundedRectButton";
 import { useRoute } from '@react-navigation/native';
+import { StatusBar } from "native-base";
 
 function OrganizerScreen ({ navigation }) {
   const accessToken = global.ACCESSTOKEN;
@@ -31,6 +32,7 @@ function OrganizerScreen ({ navigation }) {
         source={require("../assets/light_blue_new.jpg")}
         style={styles.imageBackground}
       >
+        <StatusBar/>
         <Image
           source={require("../assets/dog_logo.png")}
           style={styles.imageHeading}

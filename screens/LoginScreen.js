@@ -7,7 +7,7 @@ import { View,
   TouchableOpacity, 
   StyleSheet} from "react-native";
 import axios from "axios";
-import { ScrollView } from "native-base";
+import { ScrollView, StatusBar } from "native-base";
 
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -65,6 +65,7 @@ const LoginScreen = ({ navigation }) => {
         resizeMode="cover"
         style={styles.imageBackground}
       >
+        <StatusBar/>
         <Image
           source={require("../assets/dog_logo.png")}
           style={styles.imageHeading}
@@ -75,6 +76,7 @@ const LoginScreen = ({ navigation }) => {
         <Text style={styles.headingTextAfter}></Text>
 
         <TextInput
+          autoCapitalize="none"
           style={styles.input}
           placeholder="Username"
           onChangeText={(text) => setUsername(text)}
@@ -82,6 +84,7 @@ const LoginScreen = ({ navigation }) => {
         />
 
         <TextInput
+          autoCapitalize="none"
           style={styles.input}
           placeholder="Password"
           onChangeText={(text) => setPassword(text)}
@@ -141,7 +144,7 @@ const styles = StyleSheet.create({
     height: 50,
     marginTop: 0,
     margin: 40,
-    padding:40,
+    padding:10,
     fontSize:20,
     borderColor: "#ccc",
     borderWidth: 1,
