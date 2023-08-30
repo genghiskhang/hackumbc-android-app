@@ -37,6 +37,7 @@
     },
     "updates": {
       "url": "https://u.expo.dev/c692696e-8439-402d-9588-f8a70707fd5e"
-    }
+    },
+    "plugins": ["react-native-nfc-manager"]
   }
 }
