@@ -16,7 +16,7 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    if message.channel.id == CHANNEL_ID:
+    if message.channel.id == CHANNEL_ID and message.content[0] != '!':
         author_name = message.author.nick if message.author.nick is not None else message.author.name
         msg = message.content.replace("'", "\\'")
         time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -29,6 +29,7 @@ async def on_message(message):
             print('Entry added successfully')
         else:
             print('Failed to add entry')
+    await bot.process_commands(message)
             
 @bot.event
 async def on_message_edit(message):
@@ -37,6 +38,32 @@ async def on_message_edit(message):
 @bot.event
 async def on_message_delete(message):
     pass
+
+@bot.command()
+async def configure(ctx):
+    global CHANNEL_ID
+    if ctx.author.guild_permissions.administrator:
+        data = json.load(open('credentials.json', 'r'))
+        data['channel'] = ctx.channel.id
+        CHANNEL_ID = data['channel']
+        json.dump(data, open('credentials.json', 'w'))
+        await ctx.send(f'{bot.user.name} is now listening to the {ctx.channel.name} ({ctx.channel.id}) channel')
+
+@bot.command()
+async def wipe(ctx, limit):
+    if ctx.author.guild_permissions.administrator:
+        try:
+            deleted_message_id = []
+            async for message in bot.get_channel(ctx.channel.id).history(limit=int(limit)):
+                deleted_message_id.append(message.id)
+            for message_id in deleted_message_id:
+                try:
+                    message = await bot.get_channel(ctx.channel.id).fetch_message(message_id)
+                    await message.delete()
+                except Exception as e:
+                    print(f'Failed to delete message {message_id}: {e}')
+        except Exception as e:
+            await ctx.send(f'Failed to delete messages: {e}')
 
 if __name__ == '__main__':
     bot.run(BOT_TOKEN)
