@@ -3,6 +3,7 @@ import { View, Text, TextInput, ImageBackground, Image, Button, StyleSheet, View
 import RoundedRectButton from "../Components/RoundedRectButton";
 import axios from "axios";
 import { StatusBar } from "native-base";
+import { NFCScanner } from "../Components/NFCScanner"
 
 const ScanNFCScreen = ({ navigation }) => {
     var participant_id = "9900";
@@ -60,6 +61,8 @@ const ScanNFCScreen = ({ navigation }) => {
         <Text style={styles.headingTextBefore}></Text>
         <Text style={styles.headingText}>Scan NFC Tag/n{username}</Text>
         <Text style={styles.headingTextAfter}></Text>
+
+//        <NFCScanner/>
     
         <RoundedRectButton
             title="Scan Tag"

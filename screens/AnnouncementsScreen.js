@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
   },
   announcementsAuthor: {
     fontSize:10,
+    color:'black',
   },
   modalView: {
     margin: 20,
@@ -171,6 +172,7 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
+    color: 'black',
   },
   headingText: {
     textAlign: "center",
