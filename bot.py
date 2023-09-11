@@ -16,13 +16,14 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    if message.channel.id == CHANNEL_ID and message.content[0] != '!':
+    if message.channel.id == CHANNEL_ID and message.content.strip()[0] != '!':
+        message_id = message.id
         author_name = message.author.nick if message.author.nick is not None else message.author.name
         msg = message.content.replace("'", "\\'")
         time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         
         query = {
-            'query':f"CALL add_announcement('{author_name}', '{msg}', '{time_created}');"
+            'query':f"CALL add_announcement('{message_id}', '{author_name}', '{msg}', '{time_created}');"
         }
         response = requests.post('https://fh149c2qc4.execute-api.us-east-2.amazonaws.com/prod/org/connectrds', json=query)
         if (response.status_code == 200):
@@ -32,12 +33,34 @@ async def on_message(message):
     await bot.process_commands(message)
             
 @bot.event
-async def on_message_edit(message):
-    pass
+async def on_message_edit(before, after):
+    if before.channel.id == CHANNEL_ID:
+        message_id = after.id
+        msg = after.content.replace("'", "\\'")
+        time_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+        query = {
+            'query':f"CALL update_announcement('{message_id}', '{msg}', '{time_created}');"
+        }
+        response = requests.post('https://fh149c2qc4.execute-api.us-east-2.amazonaws.com/prod/org/connectrds', json=query)
+        if (response.status_code == 200):
+            print('Entry updated successfully')
+        else:
+            print('Failed to update entry')
 
 @bot.event
 async def on_message_delete(message):
-    pass
+    if message.channel.id == CHANNEL_ID:
+        message_id = message.id
+        
+        query = {
+            'query':f"CALL delete_announcement('{message_id}');"
+        }
+        response = requests.post('https://fh149c2qc4.execute-api.us-east-2.amazonaws.com/prod/org/connectrds', json=query)
+        if (response.status_code == 200):
+            print('Entry deleted successfully')
+        else:
+            print('Failed to update entry')
 
 @bot.command()
 async def configure(ctx):
@@ -47,7 +70,7 @@ async def configure(ctx):
         data['channel'] = ctx.channel.id
         CHANNEL_ID = data['channel']
         json.dump(data, open('credentials.json', 'w'))
-        await ctx.send(f'{bot.user.name} is now listening to the {ctx.channel.name} ({ctx.channel.id}) channel')
+        print(f'{bot.user.name} is now listening to the {ctx.channel.name} ({ctx.channel.id}) channel')
 
 @bot.command()
 async def wipe(ctx, limit):
@@ -63,7 +86,7 @@ async def wipe(ctx, limit):
                 except Exception as e:
                     print(f'Failed to delete message {message_id}: {e}')
         except Exception as e:
-            await ctx.send(f'Failed to delete messages: {e}')
+            print(f'Failed to delete messages: {e}')
 
 if __name__ == '__main__':
     bot.run(BOT_TOKEN)
